@@ -6,7 +6,7 @@ export const site = {
   policyUpdated: '25 October 2026',
   // Public contact address for the policy. Use a dedicated address, not a personal one.
   // Leave empty to hide the contact line until you have one.
-  contactEmail: '',
+  contactEmail: 'personal.apps.dev@gmail.com',
   // Fill in once the app is live on Google Play.
   playStoreUrl: '',
 };

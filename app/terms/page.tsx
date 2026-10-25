@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Terms & Conditions' };
 
 export default function Terms() {
   return (
-    <>
+    <div className="wrap legal">
       <h1>Terms &amp; Conditions</h1>
       <p className="muted">
         {site.name} · Last updated {site.policyUpdated}
@@ -64,6 +64,6 @@ export default function Terms() {
       </p>
 
       <Contact />
-    </>
+    </div>
   );
 }

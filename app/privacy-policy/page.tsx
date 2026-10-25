@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: 'Privacy Policy' };
 
 export default function PrivacyPolicy() {
   return (
-    <>
+    <div className="wrap legal">
       <h1>Privacy Policy</h1>
       <p className="muted">
         {site.name} · Last updated {site.policyUpdated}
@@ -88,6 +88,6 @@ export default function PrivacyPolicy() {
       </p>
 
       <Contact />
-    </>
+    </div>
   );
 }
