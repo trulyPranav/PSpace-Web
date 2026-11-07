@@ -56,7 +56,7 @@ nav a { color: var(--muted); font-size: 14px; padding: 8px 10px; border-radius: 
 nav a:hover { color: var(--fg); background: var(--card); text-decoration: none; }
 .theme { border: 1px solid var(--line); background: transparent; border-radius: 999px; width: 36px; height: 36px; cursor: pointer; font-size: 15px; margin-left: 6px; transition: transform 0.2s, background 0.2s; }
 .theme:hover { background: var(--card); transform: rotate(12deg); }
-@media (max-width: 560px) { nav a:nth-child(1), nav a:nth-child(2) { display: none; } }
+@media (max-width: 560px) { nav a:nth-child(-n+3) { display: none; } }
 
 /* hero */
 .hero { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; padding: 48px 0 24px; }
@@ -154,3 +154,11 @@ footer.site { border-top: 1px solid var(--line); padding: 26px 0 40px; color: va
   .tilt, .float { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+/* pro */
+.perks { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+@media (min-width: 560px) { .perks { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .perks { grid-template-columns: repeat(4, 1fr); } }
+.perk { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 20px; transition: border-color 0.25s, transform 0.25s; }
+.perk:hover { border-color: color-mix(in srgb, var(--primary) 50%, var(--line)); transform: translateY(-2px); }
+.perk strong { display: block; font-size: 16px; letter-spacing: -0.01em; margin-bottom: 6px; }
+.perk span { display: block; color: var(--muted); font-size: 14px; }

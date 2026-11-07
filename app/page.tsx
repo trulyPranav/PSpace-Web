@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Faq from '@/components/Faq';
 import Features from '@/components/Features';
 import Hero from '@/components/Hero';
+import Pro from '@/components/Pro';
 import Reveal from '@/components/Reveal';
 import Stats from '@/components/Stats';
 import { site } from '@/lib/site';
@@ -37,6 +38,22 @@ export default function Home() {
           </Reveal>
           <Reveal delay={80}>
             <Stats />
+          </Reveal>
+        </div>
+      </section>
+
+      <section id="pro" className="section">
+        <div className="wrap wide">
+          <Reveal>
+            <p className="kicker">PSpace Pro</p>
+            <h2 className="big">Free to use. Pro when you want more.</h2>
+            <p className="lede narrow-text">
+              One purchase, no subscription. Your content is never locked behind it, and you can restore it
+              any time with the same Google account.
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <Pro />
           </Reveal>
         </div>
       </section>

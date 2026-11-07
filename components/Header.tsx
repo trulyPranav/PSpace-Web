@@ -23,6 +23,7 @@ export default function Header() {
         </Link>
         <nav>
           <Link href="/#features">Features</Link>
+          <Link href="/#pro">Pro</Link>
           <Link href="/#faq">FAQ</Link>
           <Link href="/privacy-policy">Privacy</Link>
           <ThemeToggle />

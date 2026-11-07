@@ -54,10 +54,29 @@ export default function PrivacyPolicy() {
 
       <h2>Internet and sharing</h2>
       <p>
-        This version of PSpace does not ask for internet access and does not send your data anywhere. Files
-        leave your phone only when you choose to share them with another app. If optional online features are
-        added later, they will be opt-in and this policy will be updated first.
+        PSpace has no servers and no account, and it does not send your notes, files or chats anywhere. Files
+        leave your phone only when you choose to share them with another app. The only things that go online
+        are handled by Google Play on your phone: buying or restoring PSpace Pro, checking for app updates,
+        and the occasional request to rate the app. If other online features are added later, they will be
+        opt-in and this policy will be updated first.
       </p>
+
+      <h2>Purchases (PSpace Pro)</h2>
+      <p>
+        PSpace Pro is an optional one-time purchase made through Google Play. Google handles the payment and
+        keeps the receipt; PSpace and its developer never see your card or payment details.
+      </p>
+      <ul>
+        <li>
+          PSpace asks Google Play whether this Google account owns Pro, and remembers the answer on your phone
+          so Pro keeps working offline.
+        </li>
+        <li>
+          Your choices (app icon, accent colour, hidden items, reminder repeats) are stored only on your
+          phone, like the rest of your data.
+        </li>
+        <li>Hiding an item only keeps it out of sight inside PSpace. It is not encryption.</li>
+      </ul>
 
       <h2>Export and backup</h2>
       <p>

@@ -45,11 +45,31 @@ export default function Terms() {
       <h2>Keeping it safe</h2>
       <p>If you set a PIN, keep it somewhere safe. A forgotten PIN cannot be reset without clearing the app&apos;s data.</p>
 
-      <h2>Paid features</h2>
+      <h2>PSpace Pro (paid features)</h2>
       <p>
-        Some features may be offered as optional purchases through Google Play. Payments, refunds and receipts
-        are handled by Google Play under its own terms; PSpace never sees your payment details.
+        PSpace is free to use. PSpace Pro is an optional one-time purchase, not a subscription, made through
+        Google Play and tied to your Google account. Payments, refunds and receipts are handled by Google Play
+        under its own terms; PSpace never sees your payment details.
       </p>
+      <ul>
+        <li>
+          Pro unlocks the extra features listed on the Pro screen, such as export, backup, hidden items, extra
+          folders and pins, app icons, accent colours and repeating reminders. What is included may grow over
+          time.
+        </li>
+        <li>
+          The free version has limits on folders and pins. Your existing content is never locked or deleted if
+          you do not have Pro, or if Pro is refunded; you just cannot add past the free limits.
+        </li>
+        <li>
+          If you reinstall or change phone, use Restore purchase on the Pro screen with the same Google
+          account. Restoring is always free.
+        </li>
+        <li>
+          Refunds follow Google Play&apos;s refund policy. If Pro is refunded, Pro-only features stop being
+          available to use.
+        </li>
+      </ul>
 
       <h2>No warranty and liability</h2>
       <p>

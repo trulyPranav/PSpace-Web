@@ -3,12 +3,13 @@
 import { useState } from 'react';
 
 const faqs = [
-  ['Does PSpace need an account or internet?', 'No. There is no sign-up and the app works fully offline. It does not ask for internet access at all.'],
+  ['Does PSpace need an account or internet?', 'No. There is no sign-up and the app works fully offline. Only Google Play, on your phone, goes online (for Pro, updates and the rating prompt); PSpace never sends your content anywhere.'],
   ['Where is my data stored?', "Only on your phone, inside the app's private storage. The developer cannot see it or recover it."],
   ['What happens if I lose my phone?', 'Use Backup in Settings to save a copy somewhere safe, like Drive or your computer, and restore it on a new phone. Backups are not encrypted, so keep them private.'],
   ['What if I forget my PIN?', "A forgotten PIN cannot be reset without clearing the app's data, so keep it somewhere safe and make a backup first."],
   ['Can I take my data out?', 'Yes. Export creates a normal zip with your files in their folders, your chat as text, and your notes. Nothing is locked in.'],
-  ['Is it free?', 'Yes, you can download it for free. Some extra features may become optional purchases later, and restoring your own data will always be free.'],
+  ['Is it free?', 'Yes. PSpace is free to use. PSpace Pro is an optional one-time purchase, with no subscription, that adds extras. Your content is never locked, and restoring your own data is always free.'],
+  ['What does PSpace Pro add?', 'Export and backup, hidden folders and files, unlimited folders and pins, extra app icons and accent colours, and repeating reminders. Buy it once and restore it any time with the same Google account.'],
 ];
 
 /** Accordion: one answer open at a time, smooth height animation. */
