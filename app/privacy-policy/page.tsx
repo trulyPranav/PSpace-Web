@@ -50,6 +50,10 @@ export default function PrivacyPolicy() {
           not browse your other files.
         </li>
         <li>Vibration and restart: small taps of feedback, and restoring reminders after your phone restarts.</li>
+        <li>
+          Internet: used only by Google Play features (buying or restoring Pro, update checks and the rating
+          prompt). PSpace never uses it to send your content anywhere.
+        </li>
       </ul>
 
       <h2>Internet and sharing</h2>

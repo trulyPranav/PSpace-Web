@@ -56,7 +56,54 @@ nav a { color: var(--muted); font-size: 14px; padding: 8px 10px; border-radius: 
 nav a:hover { color: var(--fg); background: var(--card); text-decoration: none; }
 .theme { border: 1px solid var(--line); background: transparent; border-radius: 999px; width: 36px; height: 36px; cursor: pointer; font-size: 15px; margin-left: 6px; transition: transform 0.2s, background 0.2s; }
 .theme:hover { background: var(--card); transform: rotate(12deg); }
-@media (max-width: 560px) { nav a:nth-child(-n+3) { display: none; } }
+nav .links { display: flex; align-items: center; gap: 4px; }
+.menu-btn { display: none; position: relative; width: 40px; height: 40px; margin-left: 6px; border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer; }
+.menu-btn span { position: absolute; left: 12px; right: 12px; height: 2px; border-radius: 2px; background: var(--fg); transition: transform 0.25s ease, top 0.25s ease; }
+.menu-btn span:nth-child(1) { top: 15px; }
+.menu-btn span:nth-child(2) { top: 22px; }
+.menu-btn.open span:nth-child(1) { top: 18px; transform: rotate(45deg); }
+.menu-btn.open span:nth-child(2) { top: 18px; transform: rotate(-45deg); }
+
+/* phones and small tablets: links move into a menu */
+@media (max-width: 720px) {
+  .menu-btn { display: block; }
+  .theme { width: 40px; height: 40px; }
+  nav .links {
+    position: absolute; top: 62px; left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    padding: 6px 20px 14px;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+  nav .links.open { opacity: 1; visibility: visible; transform: none; }
+  nav .links a { font-size: 17px; padding: 14px 4px; border-radius: 0; border-bottom: 1px solid var(--line); color: var(--fg); }
+  nav .links a:last-child { border-bottom: 0; }
+  nav .links a:hover { background: transparent; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 56px 0; }
+  .hero { padding: 28px 0 8px; gap: 8px; }
+  .lede { font-size: 17px; }
+  .cta-row { flex-direction: column; }
+  .cta-row .btn { text-align: center; }
+  .float { display: none; }
+  .hero-stage { padding: 12px 0 4px; }
+  .feature-phone { order: -1; }
+  .feature-phone .phone { width: min(210px, 56vw); }
+  .features { gap: 24px; }
+  .feature { padding: 16px; }
+  .feature.on .feature-body { max-height: 220px; }
+  .stat { padding: 22px 12px; border-radius: 20px; }
+  .faq-q { font-size: 16px; padding: 18px 2px; }
+  .cta-card { padding: 40px 20px; border-radius: 26px; }
+  .cta-card .btn { display: block; }
+  .legal { padding: 32px 20px 56px; }
+  .card { padding: 18px; margin: 22px 0; }
+  .foot { flex-direction: column; gap: 10px; }
+  .foot-links { flex-wrap: wrap; }
+}
 
 /* hero */
 .hero { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; padding: 48px 0 24px; }
@@ -137,7 +184,7 @@ nav a:hover { color: var(--fg); background: var(--card); text-decoration: none; 
 .reveal.in { opacity: 1; transform: none; }
 
 /* legal pages */
-.legal { padding: 48px 0 72px; }
+.legal { padding: 48px 20px 72px; }
 .legal h1 { font-size: clamp(32px, 6vw, 44px); letter-spacing: -0.03em; line-height: 1.1; margin: 0 0 12px; }
 .legal h2 { font-size: 20px; letter-spacing: -0.02em; margin: 36px 0 8px; }
 .legal ul { padding-left: 20px; }
@@ -155,10 +202,14 @@ footer.site { border-top: 1px solid var(--line); padding: 26px 0 40px; color: va
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 /* pro */
-.perks { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
-@media (min-width: 560px) { .perks { grid-template-columns: repeat(2, 1fr); } }
+.perks { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
 @media (min-width: 900px) { .perks { grid-template-columns: repeat(4, 1fr); } }
 .perk { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 20px; transition: border-color 0.25s, transform 0.25s; }
 .perk:hover { border-color: color-mix(in srgb, var(--primary) 50%, var(--line)); transform: translateY(-2px); }
 .perk strong { display: block; font-size: 16px; letter-spacing: -0.01em; margin-bottom: 6px; }
 .perk span { display: block; color: var(--muted); font-size: 14px; }
+@media (max-width: 640px) {
+  .perk { padding: 16px; border-radius: 18px; }
+  .perk strong { font-size: 15px; }
+  .perk span { font-size: 13px; }
+}
