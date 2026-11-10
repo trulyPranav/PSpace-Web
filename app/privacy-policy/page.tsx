@@ -2,7 +2,12 @@ import type { Metadata } from 'next';
 import Contact from '@/components/Contact';
 import { site } from '@/lib/site';
 
-export const metadata: Metadata = { title: 'Privacy Policy' };
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'What PSpace stores, what it never collects, and how purchases and permissions work.',
+  alternates: { canonical: '/privacy-policy' },
+  openGraph: { url: '/privacy-policy', title: 'Privacy Policy · PSpace' },
+};
 
 export default function PrivacyPolicy() {
   return (

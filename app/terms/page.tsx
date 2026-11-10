@@ -2,7 +2,12 @@ import type { Metadata } from 'next';
 import Contact from '@/components/Contact';
 import { site } from '@/lib/site';
 
-export const metadata: Metadata = { title: 'Terms & Conditions' };
+export const metadata: Metadata = {
+  title: 'Terms & Conditions',
+  description: 'The terms for using PSpace, including how PSpace Pro purchases work.',
+  alternates: { canonical: '/terms' },
+  openGraph: { url: '/terms', title: 'Terms & Conditions · PSpace' },
+};
 
 export default function Terms() {
   return (

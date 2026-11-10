@@ -7,9 +7,24 @@ import Reveal from '@/components/Reveal';
 import Stats from '@/components/Stats';
 import { site } from '@/lib/site';
 
+// Tells search engines what this is: a free Android app.
+const appJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.name,
+  description: site.description,
+  url: site.url,
+  image: `${site.url}/og.png`,
+  applicationCategory: 'ProductivityApplication',
+  operatingSystem: 'Android',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'INR' },
+  author: { '@type': 'Organization', name: site.developer },
+};
+
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }} />
       <div className="wrap wide">
         <Hero />
       </div>
