@@ -2,11 +2,11 @@
 export const site = {
   name: 'PSpace',
   tagline: 'Your private space for files, notes and voice memos.',
-  developer: 'Personal',
+  developer: 'Personal Ways',
   policyUpdated: '8 November 2026',
-  // Public contact address for the policy. Use a dedicated address, not a personal one.
-  // Leave empty to hide the contact line until you have one.
-  contactEmail: 'personal.apps.dev@gmail.com',
+  // No public email on the site or in the app. Fill this in only if a contact
+  // line should appear on the policy pages and in the footer.
+  contactEmail: '',
   // Fill in once the app is live on Google Play.
   playStoreUrl: '',
 };
