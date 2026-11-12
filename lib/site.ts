@@ -12,6 +12,6 @@ export const site = {
   // No public email on the site or in the app. Fill this in only if a contact
   // line should appear on the policy pages and in the footer.
   contactEmail: '',
-  // Fill in once the app is live on Google Play.
-  playStoreUrl: '',
+  // Google Play listing. Empty shows "Coming soon" instead of a button.
+  playStoreUrl: 'https://play.google.com/store/apps/details?id=com.pspace.app',
 };
