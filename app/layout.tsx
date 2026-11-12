@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from 'next';
-import Link from 'next/link';
+import { Inter } from 'next/font/google';
+import './sc.css';
 import './globals.css';
 import Header from '@/components/Header';
 import { site } from '@/lib/site';
+
+// The app's own typeface, so the site and the product read as one thing.
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
 const pageTitle = `${site.name}: ${site.tagline}`;
 
@@ -35,36 +39,23 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
-  ],
+  colorScheme: 'dark',
+  themeColor: '#0a0b0f',
 };
 
-// Runs before paint so the page never flashes the wrong theme.
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){}})();`;
+// Marks the page as scripted before paint. Without it (no JS) the lock scene
+// falls back to showing its opened state, so nothing is ever hidden.
+const jsFlag = `document.documentElement.classList.add('js')`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
       </head>
       <body>
         <Header />
-        <main>{children}</main>
-        <footer className="site">
-          <div className="wrap foot">
-            <span>
-              © {new Date().getFullYear()} {site.name}
-            </span>
-            <span className="foot-links">
-              <Link href="/privacy-policy">Privacy Policy</Link>
-              <Link href="/terms">Terms</Link>
-              {site.contactEmail && <a href={`mailto:${site.contactEmail}`}>Contact</a>}
-            </span>
-          </div>
-        </footer>
+        {children}
       </body>
     </html>
   );

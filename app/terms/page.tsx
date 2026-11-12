@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Contact from '@/components/Contact';
+import SiteFoot from '@/components/SiteFoot';
 import { site } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 
 export default function Terms() {
   return (
+    <>
     <div className="wrap legal">
       <h1>Terms &amp; Conditions</h1>
       <p className="muted">
@@ -90,5 +92,9 @@ export default function Terms() {
 
       <Contact />
     </div>
+    <div className="legal-foot">
+      <SiteFoot />
+    </div>
+    </>
   );
 }

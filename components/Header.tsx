@@ -1,71 +1,37 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import ThemeToggle from './ThemeToggle';
+import { site } from '@/lib/site';
 
-const links = [
-  ['/#features', 'Features'],
-  ['/#pro', 'Pro'],
-  ['/#faq', 'FAQ'],
-  ['/privacy-policy', 'Privacy'],
-  ['/terms', 'Terms'],
-] as const;
-
+/**
+ * The page chrome is a lock indicator, not a menu. On the home page a small
+ * script flips it from Locked to Unlocked when the visitor opens the private
+ * room. On other pages the status is hidden and a plain link takes its place.
+ */
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 8);
-    on();
-    window.addEventListener('scroll', on, { passive: true });
-    return () => window.removeEventListener('scroll', on);
-  }, []);
-
-  // Escape closes the phone menu.
-  useEffect(() => {
-    if (!open) return;
-    const on = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
-    window.addEventListener('keydown', on);
-    return () => window.removeEventListener('keydown', on);
-  }, [open]);
-
   return (
-    <header className={`site ${scrolled || open ? 'scrolled' : ''}`}>
-      <div className="wrap bar">
-        <Link href="/" className="brand" onClick={() => setOpen(false)}>
-          <img src="/logo.png" alt="" width={22} height={24} className="brand-logo" />
-          PSpace
+    <header className="bar">
+      <Link href="/" className="bar-brand" aria-label="PSpace home">
+        <img src="/img/mark.webp" alt="" width={26} height={26} />
+        <span>PSpace</span>
+      </Link>
+      <div className="bar-right">
+        <span className="vault-status" role="status" aria-live="polite">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" className="ico-locked">
+            <path d="M7 10V8a5 5 0 0 1 10 0v2h1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h1Zm2 0h6V8a3 3 0 0 0-6 0v2Z" fill="currentColor" />
+          </svg>
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" className="ico-open">
+            <path d="M15 10V8a3 3 0 0 0-6 0h-2a5 5 0 0 1 10 0v2h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h9Z" fill="currentColor" />
+          </svg>
+          <span className="vs-locked">Locked</span>
+          <span className="vs-open">Unlocked</span>
+        </span>
+        <Link href="/" className="bar-home">
+          Home
         </Link>
-        <nav>
-          <div id="site-links" className={`links ${open ? 'open' : ''}`}>
-            {links.map(([href, label]) =>
-              // Section links are plain anchors: the browser scrolls to them
-              // (and leaves room for the header) on this page or from another.
-              href.startsWith('/#') ? (
-                <a key={href} href={href} onClick={() => setOpen(false)}>
-                  {label}
-                </a>
-              ) : (
-                <Link key={href} href={href} onClick={() => setOpen(false)}>
-                  {label}
-                </Link>
-              ),
-            )}
-          </div>
-          <ThemeToggle />
-          <button
-            className={`menu-btn ${open ? 'open' : ''}`}
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="site-links"
-            onClick={() => setOpen(!open)}
-          >
-            <span />
-            <span />
-          </button>
-        </nav>
+        {site.playStoreUrl ? (
+          <a className="btn btn-sm" href={site.playStoreUrl}>
+            Get PSpace
+          </a>
+        ) : null}
       </div>
     </header>
   );
