@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
-import './sc.css';
 import './globals.css';
 import Header from '@/components/Header';
+import Intro from '@/components/Intro';
 import { site } from '@/lib/site';
 
 // The app's own typeface, so the site and the product read as one thing.
@@ -39,21 +39,23 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  colorScheme: 'dark',
-  themeColor: '#0a0b0f',
+  colorScheme: 'light',
+  themeColor: '#f6f7fb',
 };
 
-// Marks the page as scripted before paint. Without it (no JS) the lock scene
-// falls back to showing its opened state, so nothing is ever hidden.
-const jsFlag = `document.documentElement.classList.add('js')`;
+// Runs before paint. The short intro plays on every visit to the home page,
+// and never with reduced motion. Without JS nothing here runs, so the
+// page is simply there.
+const bootScript = `(function(){try{var d=document.documentElement;d.classList.add('js');if(location.pathname==='/'&&!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro')}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
+        <Intro />
         <Header />
         {children}
       </body>
