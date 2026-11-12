@@ -92,6 +92,9 @@ p { margin: 0; }
 .menu-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
 .menu-foot p { display: flex; gap: 1.5rem; font-size: 0.9rem; color: var(--ink2); padding-bottom: 0.9rem; }
 .menu-foot p a { text-decoration: none; }
+@media (max-width: 759px) {
+  .menu-foot .btn { min-height: 2.5rem; padding: 0 1.15rem; font-size: 0.9rem; }
+}
 
 /* -------------------------------------------------------------- intro ---- */
 .intro-screen { display: none; }
