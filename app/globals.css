@@ -65,15 +65,19 @@ p { margin: 0; }
 /* ------------------------------------------------------------- the bar --- */
 .bar {
   position: fixed; inset: 0 0 auto 0; z-index: 50; height: 3.5rem;
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding-inline: var(--pad);
+  display: flex; align-items: center; justify-content: space-between; padding-inline: var(--pad);
   background: var(--bg); border-bottom: 1px solid var(--line);
 }
-.bar > :last-child { justify-self: end; }
 .bar-brand { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 600; letter-spacing: -0.02em; text-decoration: none; }
 .bar-brand img { width: auto; height: 1.75rem; }
-.bar-menu { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 500; padding: 0.8rem 0.7rem; }
-.bar-lines { display: block; width: 14px; height: 1.5px; background: var(--ink); box-shadow: 0 5px 0 var(--ink); margin-bottom: 5px; }
-.bar-spacer { width: 1px; }
+/* The menu is an icon only: two lines that cross into an X when it is open. */
+.bar-menu { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; margin-right: -0.7rem; border-radius: 50%; }
+.bar-lines { position: relative; display: block; width: 1.25rem; height: 0.8rem; }
+.bar-lines i { position: absolute; left: 0; right: 0; height: 1.5px; background: var(--ink); transition: transform 320ms var(--ease), top 320ms var(--ease); }
+.bar-lines i:first-child { top: 0.1rem; }
+.bar-lines i:last-child { top: 0.6rem; }
+.bar-menu[aria-expanded="true"] .bar-lines i:first-child { top: 0.35rem; transform: rotate(45deg); }
+.bar-menu[aria-expanded="true"] .bar-lines i:last-child { top: 0.35rem; transform: rotate(-45deg); }
 
 .menu {
   position: fixed; inset: 0; z-index: 40; background: var(--bg);
@@ -85,8 +89,9 @@ p { margin: 0; }
 .menu ul { list-style: none; margin: 0; padding: 0; }
 .menu li a { display: inline-block; padding: 0.1em 0; font-size: clamp(2.5rem, 11vw, 4.6rem); font-weight: 600; letter-spacing: -0.05em; line-height: 1.1; text-decoration: none; }
 @media (hover: hover) and (pointer: fine) { .menu li a:hover { color: var(--blue); } }
-.menu-foot { display: flex; gap: 1.5rem; font-size: 0.9rem; color: var(--ink2); }
-.menu-foot a { text-decoration: none; }
+.menu-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.menu-foot p { display: flex; gap: 1.5rem; font-size: 0.9rem; color: var(--ink2); padding-bottom: 0.9rem; }
+.menu-foot p a { text-decoration: none; }
 
 /* -------------------------------------------------------------- intro ---- */
 .intro-screen { display: none; }
@@ -271,5 +276,5 @@ html.intro .intro-stage { animation: stageFail 300ms ease 4.1s forwards; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .menu, .menu.open, .sticky, .btn { transition: none; }
+  .menu, .menu.open, .sticky, .btn, .bar-lines i { transition: none; }
 }

@@ -13,8 +13,9 @@ const links = [
 ] as const;
 
 /**
- * Three parts, always: the name, a Menu, and the one action. Menu opens a
- * full-width panel of large page names.
+ * Two parts: the name on the left and a menu icon on the right. The icon opens
+ * a full-width panel of large page names, with the install button at its
+ * bottom right.
  */
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -40,20 +41,16 @@ export default function Header() {
         <button
           type="button"
           className="bar-menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="menu"
           onClick={() => setOpen(!open)}
         >
-          <span className="bar-lines" aria-hidden="true" />
-          {open ? 'Close' : 'Menu'}
+          <span className="bar-lines" aria-hidden="true">
+            <i />
+            <i />
+          </span>
         </button>
-        {site.playStoreUrl ? (
-          <a className="btn btn-sm" href={site.playStoreUrl}>
-            Get PSpace
-          </a>
-        ) : (
-          <span className="bar-spacer" />
-        )}
       </header>
 
       <nav id="menu" className={`menu ${open ? 'open' : ''}`} aria-label="Pages" aria-hidden={!open}>
@@ -72,14 +69,21 @@ export default function Header() {
             </li>
           ))}
         </ul>
-        <p className="menu-foot">
-          <Link href="/privacy-policy" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
-            Privacy Policy
-          </Link>
-          <Link href="/terms" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
-            Terms
-          </Link>
-        </p>
+        <div className="menu-foot">
+          <p>
+            <Link href="/privacy-policy" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+              Privacy Policy
+            </Link>
+            <Link href="/terms" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1}>
+              Terms
+            </Link>
+          </p>
+          {site.playStoreUrl && (
+            <a className="btn" href={site.playStoreUrl} tabIndex={open ? 0 : -1}>
+              Get PSpace
+            </a>
+          )}
+        </div>
       </nav>
     </>
   );
