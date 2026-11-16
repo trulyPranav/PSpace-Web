@@ -191,7 +191,8 @@ html.intro .intro-stage { animation: stageFail 400ms ease 4.2s forwards; }
 .shots {
   display: grid; grid-auto-flow: column; grid-auto-columns: 72%; gap: 1.1rem;
   margin: 2.5rem calc(var(--pad) * -1) 0; padding: 0 var(--pad) 0.5rem;
-  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--pad);
+  overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity; scroll-padding-inline: var(--pad);
   scrollbar-width: none;
 }
 .shots::-webkit-scrollbar { display: none; }
@@ -322,6 +323,11 @@ html.intro .intro-stage { animation: stageFail 400ms ease 4.2s forwards; }
     transition: opacity 900ms var(--ease) var(--d, 0ms), translate 1000ms var(--ease) var(--d, 0ms);
   }
   html.rv [data-rv]:not(.in) { opacity: 0; translate: 0 1.75rem; }
+  /* On a phone the screens are a swipe row: they are simply there, with no
+     arrival, so the row never moves under the finger. */
+  @media (max-width: 899px) {
+    html.rv .shots [data-rv], html.rv .shots [data-rv]:not(.in) { opacity: 1; translate: none; transition: none; }
+  }
 
   /* A slow drift on the phones, tied to the scroll. */
   [data-par] { --p: 0.5; will-change: transform; }
