@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import SiteFoot from '@/components/SiteFoot';
+import Motion from '@/components/Motion';
 import StickyCta from '@/components/StickyCta';
 import { site } from '@/lib/site';
 
@@ -53,6 +54,9 @@ const faqs = [
   ['What does PSpace Pro add?', 'Export and backup, hidden folders and files, unlimited folders and pins, extra app icons and accent colours, and repeating reminders. Buy it once and restore it any time with the same Google account.'],
 ];
 
+// Reveal delay, read by the CSS as --d.
+const d = (ms: number) => ({ ['--d' as string]: `${ms}ms` });
+
 function GetButton({ id }: { id?: string }) {
   return site.playStoreUrl ? (
     <a id={id} className="btn" href={site.playStoreUrl}>
@@ -73,25 +77,25 @@ export default function Home() {
       {/* First screen: the name, one line, one action, and the real app. */}
       <section className="hero">
         <div className="hero-copy">
-          <p className="note">Free · Offline · No account</p>
-          <h1>Your private space for everything you keep.</h1>
-          <p className="lede">Files, notes, reminders and voice memos in one calm app. Nothing leaves your phone.</p>
-          <div className="cta-row">
+          <p className="note rise" style={d(0)}>Free · Offline · No account</p>
+          <h1 className="rise" style={d(90)}>Your private space for everything you keep.</h1>
+          <p className="lede rise" style={d(200)}>Files, notes, reminders and voice memos in one calm app. Nothing leaves your phone.</p>
+          <div className="cta-row rise" style={d(300)}>
             <GetButton id="hero-cta" />
             <span className="fine">Free on Android</span>
           </div>
         </div>
-        <div className="hero-phone">
-          <img src="/img/ph-home.webp" alt="The PSpace home screen" width={720} height={1519} fetchPriority="high" />
+        <div className="hero-phone rise" style={d(260)}>
+          <img data-par src="/img/ph-home.webp" alt="The PSpace home screen" width={720} height={1519} fetchPriority="high" />
         </div>
       </section>
 
       <section id="features" className="band">
         <div className="wrap">
-          <h2>Everything you keep, in one calm place.</h2>
+          <h2 data-rv>Everything you keep, in one calm place.</h2>
           <div className="shots">
-            {screens.map((s) => (
-              <figure key={s.img}>
+            {screens.map((s, i) => (
+              <figure key={s.img} data-rv style={d(i * 90)}>
                 <img src={`/img/ph-${s.img}.webp`} alt={s.alt} width={s.w} height={s.h} loading="lazy" />
                 <figcaption>
                   <h3>
@@ -109,38 +113,38 @@ export default function Home() {
       <section id="private" className="band band--ink">
         <div className="wrap private">
           <div className="private-copy">
-            <h2>It stays on your phone. Full stop.</h2>
-            <p className="lede">
+            <h2 data-rv>It stays on your phone. Full stop.</h2>
+            <p className="lede" data-rv style={d(80)}>
               PSpace works fully offline and never uploads what you store, so there is nothing for anyone else to see,
               sell or lose.
             </p>
             <dl className="facts">
-              {facts.map(([t, d]) => (
-                <div key={t}>
+              {facts.map(([t, body], i) => (
+                <div key={t} data-rv style={d(i * 70)}>
                   <dt>{t}</dt>
-                  <dd>{d}</dd>
+                  <dd>{body}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <img className="private-shot" src="/img/ph-lock.webp" alt="The PSpace lock screen asking for a PIN" width={720} height={1517} loading="lazy" />
+          <img className="private-shot" data-rv data-par src="/img/ph-lock.webp" alt="The PSpace lock screen asking for a PIN" width={720} height={1517} loading="lazy" />
         </div>
       </section>
 
       <section id="pro" className="band">
         <div className="wrap split">
           <div>
-            <h2>Free to use. Pro when you want more.</h2>
-            <p className="lede">
+            <h2 data-rv>Free to use. Pro when you want more.</h2>
+            <p className="lede" data-rv style={d(80)}>
               One purchase, no subscription, priced in your local currency on Google Play. Your content is never locked
               behind it, and you can restore it any time with the same Google account.
             </p>
           </div>
           <dl className="perks">
-            {perks.map(([t, d]) => (
-              <div key={t}>
+            {perks.map(([t, body], i) => (
+              <div key={t} data-rv style={d((i % 2) * 70)}>
                 <dt>{t}</dt>
-                <dd>{d}</dd>
+                <dd>{body}</dd>
               </div>
             ))}
           </dl>
@@ -149,8 +153,8 @@ export default function Home() {
 
       <section id="faq" className="band band--soft">
         <div className="wrap split">
-          <h2>Good to know</h2>
-          <div className="faq">
+          <h2 data-rv>Good to know</h2>
+          <div className="faq" data-rv style={d(80)}>
             {faqs.map(([q, a], i) => (
               <details key={q} open={i === 0}>
                 <summary>{q}</summary>
@@ -163,11 +167,11 @@ export default function Home() {
 
       <section id="end" className="end">
         <div className="wrap">
-          <h2>Make some space for yourself.</h2>
-          <div className="cta-row">
+          <h2 data-rv>Make some space for yourself.</h2>
+          <div className="cta-row" data-rv style={d(100)}>
             <GetButton />
           </div>
-          <p className="fine">
+          <p className="fine" data-rv style={d(180)}>
             Free to use. Pro is an optional one-time purchase. Read the <Link href="/privacy-policy">Privacy Policy</Link>{' '}
             and <Link href="/terms">Terms</Link>.
           </p>
@@ -176,6 +180,7 @@ export default function Home() {
 
       <SiteFoot />
       <StickyCta />
+      <Motion />
     </main>
   );
 }

@@ -100,41 +100,60 @@ p { margin: 0; }
 .intro-screen { display: none; }
 html.intro .intro-screen {
   display: block; position: fixed; inset: 0; z-index: 100; color: #fff; pointer-events: all;
-  animation: introFailScreen 1ms linear 4.6s forwards;
+  animation: introFailScreen 1ms linear 5.6s forwards;
 }
 @keyframes introFailScreen { to { visibility: hidden; pointer-events: none; } }
-.intro-door { position: absolute; top: 0; bottom: 0; width: 50.2%; background: #0a1226; transition: transform 900ms var(--move) 260ms; }
-.intro-door--l { left: 0; }
-.intro-door--r { right: 0; }
-.intro-door::after { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.22); }
-.intro-door--l::after { right: 0; }
-.intro-door--r::after { left: 0; }
-html.intro-out .intro-door--l { transform: translateX(-101%); }
-html.intro-out .intro-door--r { transform: translateX(101%); }
-html.intro .intro-door--l { animation: doorL 900ms var(--move) 4.2s forwards; }
-html.intro .intro-door--r { animation: doorR 900ms var(--move) 4.2s forwards; }
-@keyframes doorL { to { transform: translateX(-101%); } }
-@keyframes doorR { to { transform: translateX(101%); } }
 
-.intro-stage { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity 320ms var(--ease), transform 320ms var(--ease); }
-html.intro-out .intro-stage { opacity: 0; transform: scale(0.97); }
-html.intro .intro-stage { animation: stageFail 300ms ease 4.1s forwards; }
+/* One navy screen that lifts away, with a curved trailing edge. */
+.intro-panel { position: absolute; inset: 0; background: #0a1226; transition: transform 1150ms var(--move); will-change: transform; }
+.intro-panel::after {
+  content: ""; position: absolute; left: -10%; right: -10%; top: calc(100% - 1px); height: 16vh;
+  background: #0a1226; border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  transform-origin: 50% 0; transform: scaleY(0); transition: transform 1150ms var(--move);
+}
+html.intro-out .intro-panel { transform: translateY(calc(-100% - 16vh)); }
+html.intro-out .intro-panel::after { transform: scaleY(1); }
+html.intro .intro-panel { animation: panelUp 1150ms var(--move) 4.3s forwards; }
+@keyframes panelUp { to { transform: translateY(calc(-100% - 16vh)); } }
+
+/* What is on the screen falls behind as it lifts, so it reads as depth. */
+.intro-stage { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden; transition: opacity 600ms var(--ease), transform 1150ms var(--move); }
+html.intro-out .intro-stage { opacity: 0; transform: translateY(26vh); }
+html.intro .intro-stage { animation: stageFail 400ms ease 4.2s forwards; }
 @keyframes stageFail { to { opacity: 0; } }
-.intro-glow { position: absolute; width: 38rem; height: 38rem; max-width: 140vw; border-radius: 50%; background: radial-gradient(closest-side, rgba(11, 107, 255, 0.28), transparent); opacity: 0; animation: introGlow 1400ms var(--ease) 100ms forwards; }
-@keyframes introGlow { to { opacity: 1; } }
-.intro-center { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
-.intro-mark { position: relative; width: 7rem; height: 7rem; display: grid; place-items: center; opacity: 0; transform: scale(0.88); animation: introMark 700ms var(--ease) 120ms forwards; }
-@keyframes introMark { to { opacity: 1; transform: none; } }
-.intro-mark img { width: auto; height: 3.6rem; }
-.intro-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
-.intro-ring circle { fill: none; stroke-width: 1.2; }
-.intro-ring .track { stroke: rgba(255, 255, 255, 0.16); }
-.intro-ring .arc { stroke: #fff; stroke-linecap: round; stroke-dasharray: 289; stroke-dashoffset: 289; }
-.intro-word { position: relative; height: 1.5em; width: 14rem; text-align: center; font-size: clamp(1.15rem, 4vw, 1.5rem); font-weight: 500; letter-spacing: -0.03em; }
-.intro-word span { position: absolute; inset: 0; opacity: 0; transform: translateY(0.45em); transition: opacity 360ms var(--ease), transform 360ms var(--ease); }
-[data-i="0"] .intro-word span:nth-child(1), [data-i="1"] .intro-word span:nth-child(2), [data-i="2"] .intro-word span:nth-child(3), [data-i="3"] .intro-word span:nth-child(4) { opacity: 1; transform: none; }
-.intro-count { position: absolute; left: var(--pad); bottom: calc(var(--pad) * 0.8); display: flex; align-items: baseline; gap: 0.2rem; font-size: clamp(4rem, 17vw, 9rem); font-weight: 600; letter-spacing: -0.06em; line-height: 0.9; font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, 0.92); }
-.intro-count small { font-size: 0.28em; letter-spacing: 0; color: rgba(255, 255, 255, 0.6); font-weight: 500; }
+
+.intro-glow {
+  position: absolute; width: 46rem; height: 46rem; max-width: 150vw; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(11, 107, 255, 0.24), transparent);
+  opacity: 0; animation: introGlow 2600ms var(--ease) 100ms forwards;
+}
+@keyframes introGlow { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1.08); } }
+
+/* The words: each rises through a mask, rests, and passes upward. */
+.intro-words {
+  position: relative; width: 100%; height: 1.2em; overflow: hidden; text-align: center;
+  font-size: clamp(2.9rem, 12vw, 6.5rem); font-weight: 600; letter-spacing: -0.055em; line-height: 1.2;
+}
+.intro-words > span {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 0.3em;
+  transform: translateY(105%); transition: transform 760ms var(--move);
+}
+[data-i="0"] .intro-words > span:nth-child(1),
+[data-i="1"] .intro-words > span:nth-child(2),
+[data-i="2"] .intro-words > span:nth-child(3),
+[data-i="3"] .intro-words > span:nth-child(4) { transform: none; }
+[data-i="1"] .intro-words > span:nth-child(1),
+[data-i="2"] .intro-words > span:nth-child(-n + 2),
+[data-i="3"] .intro-words > span:nth-child(-n + 3) { transform: translateY(-105%); }
+.intro-lockup img { width: auto; height: 0.86em; }
+
+/* A hairline that fills along the bottom, with a small count. */
+.intro-meter { position: absolute; left: var(--pad); right: var(--pad); bottom: calc(var(--pad) + env(safe-area-inset-bottom)); opacity: 0; animation: meterIn 700ms var(--ease) 150ms forwards; }
+@keyframes meterIn { to { opacity: 1; } }
+.intro-meter-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.7rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.62); }
+.intro-num { font-variant-numeric: tabular-nums; color: rgba(255, 255, 255, 0.9); }
+.intro-track { height: 1px; background: rgba(255, 255, 255, 0.16); }
+.intro-track i { display: block; height: 100%; background: #fff; transform-origin: 0 50%; transform: scaleX(0); }
 
 /* --------------------------------------------------------------- hero ---- */
 .hero {
@@ -280,4 +299,44 @@ html.intro .intro-stage { animation: stageFail 300ms ease 4.1s forwards; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .menu, .menu.open, .sticky, .btn, .bar-lines i { transition: none; }
+}
+
+/* ------------------------------------------------------------ motion ----- */
+/* Quiet, slow and one-directional. All of it is off with reduced motion,
+   and none of it hides anything unless the script is running. */
+@media (prefers-reduced-motion: no-preference) {
+  /* First screen: the words and the phone rise as the intro doors open. */
+  html.js .hero .rise { animation: rise 1100ms var(--ease) both; animation-delay: calc(380ms + var(--d, 0ms)); }
+  html.js .hero .hero-phone.rise { animation-name: risePhone; animation-duration: 1400ms; }
+  /* While the intro is up they wait. If its script never runs, they still
+     arrive when the doors open on their own timer. */
+  html.intro:not(.intro-out) .hero .rise { animation-name: riseWait; animation-delay: calc(4.5s + var(--d, 0ms)); }
+  html.intro:not(.intro-out) .hero .hero-phone.rise { animation-name: risePhoneWait; }
+  @keyframes rise { from { opacity: 0; translate: 0 1.6rem; } to { opacity: 1; translate: 0 0; } }
+  @keyframes riseWait { from { opacity: 0; translate: 0 1.6rem; } to { opacity: 1; translate: 0 0; } }
+  @keyframes risePhone { from { opacity: 0; translate: 0 4rem; } to { opacity: 1; translate: 0 0; } }
+  @keyframes risePhoneWait { from { opacity: 0; translate: 0 4rem; } to { opacity: 1; translate: 0 0; } }
+
+  /* Sections arrive as you reach them. */
+  html.rv [data-rv] {
+    transition: opacity 900ms var(--ease) var(--d, 0ms), translate 1000ms var(--ease) var(--d, 0ms);
+  }
+  html.rv [data-rv]:not(.in) { opacity: 0; translate: 0 1.75rem; }
+
+  /* A slow drift on the phones, tied to the scroll. */
+  [data-par] { --p: 0.5; will-change: transform; }
+  .hero-phone img[data-par] { transform: translateY(calc((var(--p) - 0.5) * -4.5rem)); }
+  .private-shot[data-par] { transform: translateY(calc((0.5 - var(--p)) * 3.5rem)); }
+
+  /* Answers ease open. */
+  .faq details[open] p { animation: faqIn 420ms var(--ease) both; }
+  @keyframes faqIn { from { opacity: 0; translate: 0 -0.4rem; } to { opacity: 1; translate: 0 0; } }
+
+  /* Screens lift under the pointer. */
+  @media (hover: hover) and (pointer: fine) {
+    .shots img { transition: transform 420ms var(--ease), box-shadow 420ms var(--ease); }
+    .shots figure:hover img { transform: translateY(-8px); box-shadow: 0 30px 50px -24px rgba(14, 27, 54, 0.5); }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: scale(0.97); }
+  }
 }
